@@ -1,38 +1,24 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
-
-
 import streamlit as st
 import pandas as pd
 from sklearn import datasets
 from sklearn.ensemble import RandomForestClassifier
-
-
-# In[3]:
-
 
 st.write("""
 # Simple Iris Flower Prediction App
 This app predicts the **Iris flower** type!
 """)
 
-
-# In[4]:
-
-
 st.sidebar.header('User Input Parameters')
 
 
-# In[5]:
-
-
 def user_input_features():
-    sepal_length = st.sidebar.slider('Sepal length', 4.3, 7.9, 5.4)
-    sepal_width = st.sidebar.slider('Sepal width', 2.0, 4.4, 3.4)
-    petal_length = st.sidebar.slider('Petal length', 1.0, 6.9, 1.3)
-    petal_width = st.sidebar.slider('Petal width', 0.1, 2.5, 0.2)
+    sepal_length = st.sidebar.slider('Sepal length', 3.2, 6.5, 4.5)
+    sepal_width = st.sidebar.slider('Sepal width', 1.5, 3.4, 4.4)
+    petal_length = st.sidebar.slider('Petal length', 1.0, 7.8, 2.1)
+    petal_width = st.sidebar.slider('Petal width', 0.2, 3.5, 1.3)
     data = {'sepal_length': sepal_length,
             'sepal_width': sepal_width,
             'petal_length': petal_length,
@@ -41,45 +27,26 @@ def user_input_features():
     return features
 
 
-# In[6]:
-
-
 df = user_input_features()
 
 st.subheader('User Input parameters')
 st.write(df)
-
-
-# In[7]:
-
 
 iris = datasets.load_iris()
 X = iris.data
 Y = iris.target
 
 
-# In[8]:
-
-
 clf = RandomForestClassifier()
 clf.fit(X, Y)
-
-
-# In[9]:
 
 
 prediction = clf.predict(df)
 prediction_proba = clf.predict_proba(df)
 
 
-# In[10]:
-
-
 st.subheader('Class labels and their corresponding index number')
 st.write(iris.target_names)
-
-
-# In[11]:
 
 
 st.subheader('Prediction')
@@ -87,15 +54,5 @@ st.write(iris.target_names[prediction])
 #st.write(prediction)
 
 
-# In[13]:
-
-
 st.subheader('Prediction Probability')
 st.write(prediction_proba)
-
-
-# In[ ]:
-
-
-
-
